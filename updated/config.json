@@ -1,0 +1,82 @@
+{
+    "chatbot_title": "Registration Form Chatbot",
+    "forms": {
+      "Student Registration Form": {
+        "form_name": "Student Registration Form",
+        "fields": [
+          {
+            "label": "Name",
+            "type": "text"
+          },
+          {
+            "label": "Age",
+            "type": "text"
+          },
+          {
+            "label": "Roll No",
+            "type": "text"
+          },
+          {
+            "label": "Gender",
+            "type": "dropdown",
+            "options": ["Male", "Female", "Other"]
+          },
+          {
+            "label": "Address",
+            "type": "text"
+          },
+          {
+            "label": "City",
+            "type": "text"
+          },
+          {
+            "label": "State",
+            "type": "text"
+          },
+          {
+            "label": "Country",
+            "type": "text"
+          },
+          {
+            "label": "Email",
+            "type": "text"
+          }
+        ]
+      },
+      "Hospital Registration Form": {
+        "form_name": "Hospital Registration Form",
+        "fields": [
+          {
+            "label": "Patient Name",
+            "type": "text"
+          },
+          {
+            "label": "Reason for Visit",
+            "type": "text"
+          },
+          {
+            "label": "Age",
+            "type": "text"
+          },
+          {
+            "label": "Gender",
+            "type": "dropdown",
+            "options": ["Male", "Female", "Other"]
+          },
+          {
+            "label": "Doctor's Name",
+            "type": "text"
+          },
+          {
+            "label": "City",
+            "type": "text"
+          },
+          {
+            "label": "Contact Number",
+            "type": "text"
+          }
+        ]
+      }
+    }
+  }
+  
