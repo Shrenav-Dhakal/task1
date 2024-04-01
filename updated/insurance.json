@@ -1,0 +1,20 @@
+{
+    "fields":[
+        {
+            "label": "Insurance Company Name",
+            "type": "text"
+        },
+        {
+            "label":"Policy Holder's Name",
+            "type": "text"
+        },
+        {
+            "label": "Policy Number",
+            "type":"text"
+        },
+        {
+            "label": "Insurance Company Phone Number",
+            "type": "text"
+        }
+    ]
+}

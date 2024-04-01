@@ -89,14 +89,6 @@ def main():
 
     st.title(config['chatbot_title'])
 
-
-    # if selected_form['form_name'] == "Student Registration Form":
-    #     image = Image.open(r"E:\Palm mind\student_registration_logo.jpg")
-    #     st.image(image=image, use_column_width=True)
-    # elif selected_form['form_name'] == "Hospital Registration Form":
-    #     image = Image.open(r"E:\Palm mind\hospital_logo.png")
-    #     st.image(image=image, use_column_width=True)
-
     
     st.subheader(selected_form['form_name'])
 
@@ -128,6 +120,28 @@ def main():
 
             if not validate_gmail(field_value):
                 st.warning("Please enter a valid Gmail address.")
+        
+        elif field['type'] == "insurance":
+            field_value = st.radio(field['label'], field['options'])
+
+            if field_value == "Yes":
+                with open('insurance.json', 'r') as f:
+                    insurance_data = json.load(f)
+
+                insurance_form_data = {}
+
+                st.title("Insurance Form")
+
+
+                for field in insurance_data['fields']:
+                    if field['type'] == 'text':
+                        my_field_value = st.text_input(field['label'])
+                    elif field['type'] == 'radio':
+                        my_field_value = st.radio(field['label'], field['options'])
+                    
+                    insurance_form_data[field['label']] = my_field_value
+                
+                field_value = insurance_form_data
 
 
         form_data[field['label']] = field_value
