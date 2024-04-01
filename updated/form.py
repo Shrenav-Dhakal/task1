@@ -4,6 +4,8 @@ import os
 from dotenv import load_dotenv
 import smtplib
 import email.message
+from PIL import Image
+import re
 
 
 load_dotenv()
@@ -19,6 +21,19 @@ EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 with open('config.json', 'r') as f:
     config = json.load(f)
+
+
+def validate_gmail(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@gmail.com$'
+    return bool(re.match(pattern, email))
+
+
+def get_countries():
+    with open('dialing_codes.json', 'r') as f:
+        dialing_codes = json.load(f)
+    country_list = [{'name': country, 'code': dialing_codes[country]} for country in dialing_codes]
+    return country_list
+
 
 def send_mail(Content, subject):
     try:
@@ -53,12 +68,36 @@ def submit_form(data, form_type):
         send_mail(str(e), "Error in Form Submission")
 
 def main():
-    st.title(config['chatbot_title'])
 
     form_choice = st.selectbox("Choose Form", list(config['forms'].keys()))
 
     selected_form = config['forms'][form_choice]
+    
+    avatar_image_path = ""
+    if selected_form['form_name'] == "Student Registration Form":
+        avatar_image_path = "E:\Palm mind\student_avatar.jpg"
+    elif selected_form['form_name'] == "Hospital Registration Form":
+        avatar_image_path = "E:\Palm mind\patient_avatar.jpeg"
 
+    if avatar_image_path:
+        avatar_image = Image.open(avatar_image_path)
+        st.image(avatar_image, width=200)
+        st.markdown(
+            "<style>img {border-radius: 50%;text-align:center; margin-left: auto; margin-right: auto; display: block}</style>",
+            unsafe_allow_html=True
+        )
+
+    st.title(config['chatbot_title'])
+
+
+    # if selected_form['form_name'] == "Student Registration Form":
+    #     image = Image.open(r"E:\Palm mind\student_registration_logo.jpg")
+    #     st.image(image=image, use_column_width=True)
+    # elif selected_form['form_name'] == "Hospital Registration Form":
+    #     image = Image.open(r"E:\Palm mind\hospital_logo.png")
+    #     st.image(image=image, use_column_width=True)
+
+    
     st.subheader(selected_form['form_name'])
 
     form_data = {}
@@ -67,7 +106,30 @@ def main():
             field_value = st.text_input(field['label'])
         elif field['type'] == 'dropdown':
             field_value = st.selectbox(field['label'], field['options'])
-        
+        elif field['type'] == "radio":
+            field_value = st.radio(field['label'], field['options'])
+        elif field['type'] == "checkbox":
+            field_value = st.multiselect(field['label'], field['options'])
+        elif field['type'] == "phone":
+            country_list = get_countries()
+            selected_country = st.selectbox("Select Country", country_list, format_func=lambda x: f"{x['name']} (+{x['code']})")
+            country_code = selected_country['code']
+    
+             # Display combined country code and phone number input field
+            phone_number_with_code = st.text_input("Phone Number (including country code)", value=f"+{country_code}")
+    
+            # Example of extracting country code and phone number
+            if phone_number_with_code.startswith(f"+{country_code}"):
+                phone_number = phone_number_with_code[len(f"+{country_code}"):]
+                field_value = country_code + phone_number
+
+        elif field['type'] == "gmail":
+            field_value = st.text_input(field['label'])
+
+            if not validate_gmail(field_value):
+                st.warning("Please enter a valid Gmail address.")
+
+
         form_data[field['label']] = field_value
 
     if st.button("Submit"):
