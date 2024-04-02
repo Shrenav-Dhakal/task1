@@ -54,6 +54,15 @@ def display_centered_local_image(image_path):
     st.markdown(f'<div style="display: flex; justify-content: center;"><img src="data:image/png;base64,{image_base64}" alt="image" style="width:{circle_size}px; height:{circle_size}px; border-radius: 50%;"></div>', unsafe_allow_html=True)
 
 
+def are_required_fields_filled(selected_form, form_data):
+    unfilled_fields = []
+    for field in selected_form['fields']:
+        if field.get('required') == "true":
+            field_label = field['label']
+            if form_data.get(field_label) in (None, ''):
+                unfilled_fields.append(field_label)
+    return len(unfilled_fields) == 0, unfilled_fields
+
 def validate_gmail(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@gmail.com$'
     return bool(re.match(pattern, email))
@@ -72,7 +81,8 @@ def send_mail(Content, subject):
         to_send = ""
         msg['FROM'] =  EMAIL
         msg['To'] = TO_EMAIL
-        msg['Subject'] = f'{subject} Update'
+        msg['Subject'] = f'{subject}'
+        print(msg.get('Subject'))
         if subject == "Student Registration Form":
             a = templates[subject]
             to_send = a["message"].format(Content["Name"])  
@@ -112,7 +122,7 @@ def save_to_csv(data, form_type):
 def submit_form(data, form_type):
     try:
         formatted_data = data
-        send_mail(formatted_data, f"{form_type}")
+        send_mail(formatted_data, form_type)
         save_to_csv(formatted_data, form_type)
         st.success("Form submitted successfully!")
     except Exception as e:
@@ -149,6 +159,10 @@ def main():
         form_data = {}
 
         for field in selected_form['fields']:
+            if field['required']=="true":
+                field['label'] = field['label'] + " (Required)"
+            else:
+                pass
             if field['type'] == 'text':
                 field_value = st.text_input(field['label'])
             elif field['type'] == 'dropdown':
@@ -200,16 +214,25 @@ def main():
                         insurance_form_data[fields['label']] = my_field_value
                     
                     field_value = insurance_form_data
+                    if field['required']=="true":
+                        field['label'] = field['label'].split(" (Required)")[0]
+                    else:
+                        pass
 
             form_data[field['label']] = field_value
 
-        if st.button("Submit"):
-            submit_form(form_data, selected_form['form_name'])
+        all_fields_filled, unfilled_fields = are_required_fields_filled(selected_form, form_data)
+        if st.button("Submit",disabled=not all_fields_filled):
+            if all_fields_filled:
+                submit_form(form_data, selected_form['form_name'])
+            else:
+                st.warning(f"Please fill out the required fields: {', '.join(unfilled_fields)}")
 
         if st.button("Cancel"):
             st.warning("You have canceled your form application")
             streamlit_js_eval(js_expressions="parent.window.location.reload()")
         
+        st.warning("Submit button disabled until all required fields are filled")
 
 
 if __name__ == "__main__":
