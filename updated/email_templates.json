@@ -1,0 +1,15 @@
+{
+    "Student Registration Form":{
+        "subject": "Student Registration Confirmation",
+        "message": "Dear {0}, \n\n Thank you for your registration application. We will inform you shortly.\n\nWarm Regards"
+    }
+    ,
+    "Patient Registration Form":{
+        "subject":"Patient Registration Confirmation",
+        "message": "Dear {0}, \n\n Thank you for your application. An email will be sent soon from {1} who will be handling your checkup regarding your concern.\n\nWarm Regards"
+    },
+    "Error in Form Submission":{
+        "subject": "Error in Form Submission",
+        "message": "{0}"
+    }
+}
