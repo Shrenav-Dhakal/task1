@@ -2,19 +2,23 @@
     "fields":[
         {
             "label": "Insurance Company Name",
-            "type": "text"
+            "type": "text",
+            "required":"true"
         },
         {
             "label":"Policy Holder's Name",
-            "type": "text"
+            "type": "text",
+            "required": "true"
         },
         {
             "label": "Policy Number",
-            "type":"text"
+            "type":"text",
+            "required": "true"
         },
         {
             "label": "Insurance Company Phone Number",
-            "type": "text"
+            "type": "text",
+            "required": "true"
         }
     ]
 }

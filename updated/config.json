@@ -1,79 +1,144 @@
 {
     "chatbot_title": "Registration Form Chatbot",
     "forms": {
+      "None":null,
       "Student Registration Form": {
         "form_name": "Student Registration Form",
         "fields": [
           {
             "label": "Name",
-            "type": "text"
+            "type": "text",
+            "required":"true"
           },
           {
             "label": "Age",
-            "type": "text"
-          },
-          {
-            "label": "Roll No",
-            "type": "text"
-          },
-          {
-            "label": "Gender",
-            "type": "dropdown",
-            "options": ["Male", "Female", "Other"]
-          },
-          {
-            "label": "Address",
-            "type": "text"
-          },
-          {
-            "label": "City",
-            "type": "text"
-          },
-          {
-            "label": "State",
-            "type": "text"
-          },
-          {
-            "label": "Country",
-            "type": "text"
-          },
-          {
-            "label": "Email",
-            "type": "text"
-          }
-        ]
-      },
-      "Hospital Registration Form": {
-        "form_name": "Hospital Registration Form",
-        "fields": [
-          {
-            "label": "Patient Name",
-            "type": "text"
-          },
-          {
-            "label": "Reason for Visit",
-            "type": "text"
-          },
-          {
-            "label": "Age",
-            "type": "text"
-          },
-          {
-            "label": "Gender",
-            "type": "dropdown",
-            "options": ["Male", "Female", "Other"]
-          },
-          {
-            "label": "Doctor's Name",
-            "type": "text"
-          },
-          {
-            "label": "City",
-            "type": "text"
+            "type": "text",
+            "required":"true"
           },
           {
             "label": "Contact Number",
-            "type": "text"
+            "type": "phone",
+            "required": "true"
+          },
+          {
+            "label": "DOB",
+            "type": "date",
+            "required":"false"
+          },
+          {
+            "label": "Gender",
+            "type": "radio",
+            "options": ["Male", "Female", "Other"],
+            "required":"false"
+          },
+          {
+            "label": "Country",
+            "type": "text",
+            "required":"false"
+          },
+          {
+            "label": "City",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "State",
+            "type": "text",
+            "required":"false"
+          },
+          {
+            "label": "Email",
+            "type": "gmail",
+            "required": "true"
+          },
+          {
+            "label":"Course",
+            "type": "checkbox",
+            "options":["Mathematics", "History", "Science", "Literature"],
+            "required":"true"
+          },
+          {
+            "label": "Guardian's Name",
+            "type": "text",
+            "required": "false"
+          },
+          {
+            "label": "Previous School",
+            "type": "text",
+            "required":"false"
+          }
+        ]
+      },
+      "Patient Registration Form": {
+        "form_name": "Patient Registration Form",
+        "fields": [
+          {
+            "label": "Name",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "Reason for Visit",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "Age",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "Gender",
+            "type": "radio",
+            "options": ["Male", "Female", "Other"],
+            "required":"false"
+          },
+          {
+            "label": "Doctor's Name",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "Marital Status",
+            "type": "radio",
+            "options": ["Single", "Married", "Divorced", "Widow"],
+            "required":"false"
+          },
+          {
+            "label": "Email",
+            "type": "gmail",
+            "required": "true"
+          },
+          {
+            "label": "DOB",
+            "type": "date",
+            "required":"false"
+          },
+          {
+            "label": "Country",
+            "type": "text",
+            "required":"false"
+          },
+          {
+            "label": "City",
+            "type": "text",
+            "required": "true"
+          },
+          {
+            "label": "Contact Number",
+            "type": "phone",
+            "required": "true"
+          },
+          {
+            "label": "Past Medical History",
+            "type": "checkbox",
+            "options": ["Amnesia", "Thyroid","chicken pox"],
+            "required":"true"
+          },
+          {
+            "label": "Insurance",
+            "type": "insurance",
+            "options":["No", "Yes"]
           }
         ]
       }
